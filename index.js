@@ -1,3 +1,1 @@
-import { DatabaseService } from './src/services/database.service';
-
-export default DatabaseService;
+export * from './src/services/database.service';
