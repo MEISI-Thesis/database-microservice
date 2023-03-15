@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  uuid        String   @id
+  email       String
+  phoneNumber String
+  accessCode  String
+  firstName   String
+  lastName    String
+  dateBirth   String
+  createdAt   DateTime
+  updatedAt   DateTime
+
+  Connection Connection[]
+  UserRole   UserRole?
+  Device     Device[]
+  Address    Address[]
+}
+
+model UserRole {
+  user     User   @relation(fields: [userUuid], references: [uuid])
+  userUuid String @unique
+  role     Role   @relation(fields: [roleUuid], references: [uuid])
+  roleUuid String @unique
+
+  @@id([userUuid, roleUuid])
+}
+
+model Role {
+  uuid        String    @id
+  designation String
+  UserRole    UserRole?
+}
+
+model Address {
+  uuid       String   @id
+  user       User     @relation(fields: [userUuid], references: [uuid])
+  userUuid   String
+  latitude   String
+  longitude  String
+  street     String
+  city       String
+  country    String
+  postalCode String
+  createdAt  DateTime
+  updatedAt  DateTime
+}
+
+model Device {
+  uuid         String   @id
+  user         User     @relation(fields: [userUuid], references: [uuid])
+  userUuid     String
+  system       System   @relation(fields: [systemUuid], references: [uuid])
+  systemUuid   String
+  platform     Platform @relation(fields: [platformUuid], references: [uuid])
+  platformUuid String
+  createdAt    DateTime
+  updatedAt    DateTime
+}
+
+model System {
+  uuid        String       @id
+  designation String
+  Device      Device[]
+  Connection  Connection[]
+}
+
+model Platform {
+  uuid        String       @id
+  designation String
+  Device      Device[]
+  Connection  Connection[]
+}
+
+model Connection {
+  uuid          String    @id
+  user          User      @relation(fields: [userUuid], references: [uuid])
+  userUuid      String
+  system        System    @relation(fields: [systemUuid], references: [uuid])
+  systemUuid    String
+  platform      Platform  @relation(fields: [platformUuid], references: [uuid])
+  platformUuid  String
+  ownership     Ownership @relation(fields: [ownershipUuid], references: [uuid])
+  ownershipUuid String
+  latitude      String
+  longitude     String
+  createdAt     DateTime
+  updatedAt     DateTime
+}
+
+model Ownership {
+  uuid        String       @id
+  designation String
+  Connection  Connection[]
+}

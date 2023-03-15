@@ -1,0 +1,33 @@
+{
+  "name": "@meisi-thesis/database",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/MEISI-Thesis/database-microservice.git",
+  "author": "Diogo <diogorafaellourencooliveira97@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "test": "jest",
+    "lint:check": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts"
+  },
+  "dependencies": {
+    "@types/jest": "^29.4.1",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "typescript": "*",
+    "@prisma/client": "^4.11.0",
+    "@types/node": "^18.15.3",
+    "eslint": "^8.0.1",
+    "jest": "^29.5.0",
+    "prisma": "^4.11.0",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1"
+  }
+}
